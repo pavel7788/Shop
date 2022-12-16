@@ -1,0 +1,9 @@
+.empty-cart-image {
+    display: block;
+    margin: auto;
+}
+
+.cart-list-table {
+    width: 500px;
+    margin: 20px auto;
+}

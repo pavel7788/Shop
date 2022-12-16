@@ -1,0 +1,26 @@
+<h3 class="product-list-title">Cart List</h3>
+<div c>
+    <div class='cart-list-table' *ngIf="cartItems.length > 0; else emptyCart">
+        <table class='table table-striped table-success'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Amount, HRN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cartItems; trackBy: trackByItems">
+                    <td>{{item.name}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>{{item.amount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #emptyCart>
+        <p>
+            <img class="empty-cart-image" src="../../../assets/EmptyCart.png" alt="">
+        </p>
+    </ng-template>
+</div>
