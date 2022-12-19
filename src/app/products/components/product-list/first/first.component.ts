@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Category } from '../../models/category.model';
+import ProductModel from 'src/app/products/models/product.model';
+import { Category } from '../../../models/category.model';
 
 @Component({
   selector: 'app-first',
@@ -7,11 +8,7 @@ import { Category } from '../../models/category.model';
   styleUrls: ['./first.component.css']
 })
 export class FirstComponent {
-  public name = 'Korona';
-  public description = 'Chocolate extra dark';
-  public price = 53;
-  public category = Category.FOOD;
-  public isAvailable = false;
+  product: ProductModel = new ProductModel('Korona', 'Chocolate extra dark', 53, Category.FOOD, false);
 
   constructor() { }
 

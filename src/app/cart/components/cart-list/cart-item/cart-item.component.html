@@ -1,0 +1,14 @@
+<table class='table table-success cart-list-table'>
+    <tbody>
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.amount}}</td>
+            <td>
+                <button class="btn btn-secondary cart-button" (click)="onIncreaseQuantity()">+</button>
+                <button class="btn btn-secondary cart-button" (click)="onDecreaseQuantity()">-</button>
+                <button class="btn btn-danger cart-button" (click)="onDeleteItem()">D</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

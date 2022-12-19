@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProductModel } from '../models/product.model';
+import ProductModel from '../models/product.model';
 import * as productsListData from '../../data/products.json';
 
 @Injectable({
@@ -9,8 +9,8 @@ export class ProductsService {
 
   constructor() { }
 
-  public getProducts(): IProductModel[] {
+  public getProducts(): ProductModel[] {
     const data = productsListData;
-    return data.items as IProductModel[]
+    return data.items as ProductModel[]
   }
 }

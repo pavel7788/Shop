@@ -3,3 +3,9 @@
   padding: 10px 0;
   text-align: center;
 }
+
+.cart-list-table {
+  width: 90%;
+  table-layout: fixed;
+  margin: 0px auto;
+}

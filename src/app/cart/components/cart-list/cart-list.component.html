@@ -1,19 +1,27 @@
 <h3 class="product-list-title">Cart List</h3>
-<div c>
-    <div class='cart-list-table' *ngIf="cartItems.length > 0; else emptyCart">
-        <table class='table table-striped table-success'>
+<div>
+    <div *ngIf="cartItems.length > 0; else emptyCart">
+        <table class='table table-success cart-list-table'>
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Quantity</th>
                     <th>Amount, HRN</th>
+                    <th>Action</th>
                 </tr>
             </thead>
+        </table>
+        <app-cart-item *ngFor="let cartItem of cartItems; trackBy: trackByItems" [item]="cartItem"
+            (increaseQuantity)="onIncreaseQuantity($event)" (decreaseQuantity)="onDecreaseQuantity($event)"
+            (deleteItem)="onDeleteItem($event)">
+        </app-cart-item>
+        <table class='table table-success cart-list-table'>
             <tbody>
-                <tr *ngFor="let item of cartItems; trackBy: trackByItems">
-                    <td>{{item.name}}</td>
-                    <td>{{item.quantity}}</td>
-                    <td>{{item.amount}}</td>
+                <tr>
+                    <th>Total</th>
+                    <th>{{getTotalQuantity()}}</th>
+                    <th>{{getTotalSum()}}</th>
+                    <th></th>
                 </tr>
             </tbody>
         </table>
@@ -24,3 +32,4 @@
         </p>
     </ng-template>
 </div>
+<br>

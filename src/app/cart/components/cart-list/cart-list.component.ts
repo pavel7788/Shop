@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ICartItem } from '../../models/cart.model';
+import { Component, EventEmitter, Output } from '@angular/core';
+import CartItemModel from '../../models/cart.model';
 import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-cart-list',
@@ -7,7 +7,12 @@ import { CartService } from '../../services/cart.service';
   styleUrls: ['./cart-list.component.css']
 })
 export class CartListComponent {
-  public cartItems: ICartItem[] = [];
+
+  @Output() increaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+  @Output() decreaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+  @Output() deleteProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+
+  public cartItems: CartItemModel[] = [];
 
   constructor(private cartService: CartService) { }
 
@@ -15,8 +20,24 @@ export class CartListComponent {
     this.cartItems = this.cartService.getCartItems();
   }
 
-  public trackByItems(index: number, item: ICartItem): string {
+  public trackByItems(_index: number, item: CartItemModel): string {
     return item.name;
   }
+  public getTotalQuantity(): number {
+    return this.cartService.getTotalQuantity();
+  }
+  public getTotalSum(): number {
+    return this.cartService.getTotalSum();
+  }
+  onIncreaseQuantity(increaseProduct: CartItemModel): void {
+    this.cartService.increaseQuantity(increaseProduct);
+  }
+  onDecreaseQuantity(decreaseProduct: CartItemModel): void {
+    this.cartService.decreaseQuantity(decreaseProduct);
+  }
+  onDeleteItem(deleteProduct: CartItemModel): void {
+    this.cartService.deleteItem(deleteProduct);
+  }
+
 
 }
