@@ -13,7 +13,7 @@ export class ProductListComponent implements OnInit {
   @Output()
   addProduct: EventEmitter<ProductModel> = new EventEmitter();
 
-  public products: ProductModel[] = [];
+  products: ProductModel[] = [];
 
   constructor(private productsService: ProductsService, private cartService: CartService) { }
 

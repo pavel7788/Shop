@@ -8,11 +8,12 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartListComponent {
 
-  @Output() increaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
-  @Output() decreaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
-  @Output() deleteProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+  // не понял для чего тут эти аутпуты
+  // @Output() increaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+  // @Output() decreaseProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
+  // @Output() deleteProduct: EventEmitter<CartItemModel> = new EventEmitter<CartItemModel>();
 
-  public cartItems: CartItemModel[] = [];
+  cartItems: CartItemModel[] = [];
 
   constructor(private cartService: CartService) { }
 
@@ -20,21 +21,26 @@ export class CartListComponent {
     this.cartItems = this.cartService.getCartItems();
   }
 
-  public trackByItems(_index: number, item: CartItemModel): string {
+  trackByItems(_index: number, item: CartItemModel): string {
     return item.name;
   }
-  public getTotalQuantity(): number {
+
+  getTotalQuantity(): number {
     return this.cartService.getTotalQuantity();
   }
-  public getTotalSum(): number {
+
+  getTotalSum(): number {
     return this.cartService.getTotalSum();
   }
+
   onIncreaseQuantity(increaseProduct: CartItemModel): void {
     this.cartService.increaseQuantity(increaseProduct);
   }
+
   onDecreaseQuantity(decreaseProduct: CartItemModel): void {
     this.cartService.decreaseQuantity(decreaseProduct);
   }
+
   onDeleteItem(deleteProduct: CartItemModel): void {
     this.cartService.deleteItem(deleteProduct);
   }

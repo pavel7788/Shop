@@ -9,7 +9,7 @@ export class ProductsService {
 
   constructor() { }
 
-  public getProducts(): ProductModel[] {
+  getProducts(): ProductModel[] {
     const data = productsListData;
     return data.items as ProductModel[]
   }

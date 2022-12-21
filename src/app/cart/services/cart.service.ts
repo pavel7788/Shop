@@ -25,6 +25,8 @@ export class CartService {
   }
 
   public getTotalQuantity(): number {
+    // не понял, зачем из массива this.cartList создавать массив?
+    // разве нельзя просто this.cartList.reduce(...)?
     return Array.from(this.cartList.values()).reduce(
       (acc, item) => acc + item.quantity,
       0
