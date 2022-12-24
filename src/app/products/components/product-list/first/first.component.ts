@@ -12,7 +12,7 @@ export class FirstComponent {
 
   constructor() { }
 
-  public onAddToCart(): void {
+  onAddToCart(): void {
     console.log(`Sorry, this item is out of the stock!!!`);
   }
 
