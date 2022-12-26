@@ -23,3 +23,15 @@
 - CartListComponent
 - @Inputs for for Product properties replaced by one single @Input for total object
 
+## [1.0.2] - 2021-12-26
+### Added
+- CartPushService
+- Shared Module
+- Directives Highlight, Drawborder in SharedModule
+
+### Refactored 
+- CartModel
+- CartList and ProductList using push strategy
+- AppComponent
+
+

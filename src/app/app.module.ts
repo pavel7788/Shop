@@ -8,14 +8,15 @@ import { ProductsModule } from './products/products.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
 
     ProductsModule,
-    CartModule
+    CartModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

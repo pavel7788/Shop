@@ -1,6 +1,5 @@
 <h3 class="product-list-title">Product List</h3>
 
-
 <div class="d-flex justify-content-center flex-wrap">
   <app-first class="p-2"></app-first>
   <app-product class="p-2" *ngFor="let item of products" [product]="item" (addProduct)="onAddToCart($event)">

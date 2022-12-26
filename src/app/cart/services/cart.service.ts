@@ -14,43 +14,43 @@ export class CartService {
     return this.cartList;
   }
 
-  public addItemToCartList(product: ProductModel): void {
+  addItemToCartList(product: ProductModel): void {
     const itemToAdd = this.cartList.find(item => item.name === product.name);
     if (!itemToAdd) {
-      this.cartList.push({ name: product.name, quantity: 1, amount: product.price })
+      this.cartList.push({ name: product.name, price: product.price, quantity: 1, amount: product.price })
     } else {
       itemToAdd.quantity += 1;
-      itemToAdd.amount = Number((product.price * itemToAdd.quantity));
+      itemToAdd.amount = Number((itemToAdd.price * itemToAdd.quantity));
     }
   }
 
-  public getTotalQuantity(): number {
-    // не понял, зачем из массива this.cartList создавать массив?
-    // разве нельзя просто this.cartList.reduce(...)?
-    return Array.from(this.cartList.values()).reduce(
+  getTotalQuantity(): number {
+    return this.cartList.reduce(
       (acc, item) => acc + item.quantity,
       0
     );
   }
 
-  public getTotalSum(): number {
-    return Array.from(this.cartList.values()).reduce(
+  getTotalSum(): number {
+    return this.cartList.reduce(
       (acc, item) => acc + item.amount,
       0
     );
   }
 
-  public increaseQuantity(cartItem: CartItemModel): void {
+  increaseQuantity(cartItem: CartItemModel): void {
     cartItem.quantity++;
+    cartItem.amount += cartItem.price;
   }
-  public decreaseQuantity(cartItem: CartItemModel): void {
+  decreaseQuantity(cartItem: CartItemModel): void {
     if (cartItem.quantity === 1) {
       this.deleteItem(cartItem);
       return;
     }
     cartItem.quantity--;
+    cartItem.amount -= cartItem.price;
   }
-  public deleteItem(cartItem: CartItemModel): void {
+  deleteItem(cartItem: CartItemModel): void {
     this.cartList.splice(this.cartList.indexOf(cartItem), 1);
   }
 }

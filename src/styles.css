@@ -1,11 +1,14 @@
+.main-title {
+  padding: 10px 0;
+  text-align: center;
+}
+
 .product-list-title {
-  width: 100%;
   padding: 10px 0;
   text-align: center;
 }
 
 .cart-list-table {
-  width: 90%;
   table-layout: fixed;
   margin: 0px auto;
 }
