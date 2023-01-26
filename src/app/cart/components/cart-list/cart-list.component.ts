@@ -26,6 +26,7 @@ export class CartListComponent implements OnInit, OnDestroy {
       data => this.totalQuantity = data
     );
 
+    // как это? вы же выше сохранили уже в это поле данные, а тут перезатерли
     this.sub = this.cartPushService.channelSum$.subscribe(
       data => this.totalSum = data
     );

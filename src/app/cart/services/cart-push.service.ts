@@ -13,6 +13,9 @@ export class CartPushService {
   channelQuantity$ = this.channelQuantity.asObservable();
   channelSum$ = this.channelSum.asObservable();
 
+  // обычно количество и сумма идут вместе
+  // можно создать переменную типа tuple
+  // и тогда не надо будет два сабджекта
   publishData(q: number, s: number): void {
     this.channelQuantity.next(q);
     this.channelSum.next(s);
