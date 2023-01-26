@@ -6,37 +6,65 @@ import CartItemModel from '../models/cart.model';
   providedIn: 'root'
 })
 export class CartService {
-  cartList: CartItemModel[] = [];
+  cartProducts: CartItemModel[] = [];
 
   constructor() { }
 
   public getCartItems(): CartItemModel[] {
-    return this.cartList;
+    return this.cartProducts;
   }
 
-  addItemToCartList(product: ProductModel): void {
-    const itemToAdd = this.cartList.find(item => item.name === product.name);
-    if (!itemToAdd) {
-      this.cartList.push({ name: product.name, price: product.price, quantity: 1, amount: product.price })
-    } else {
-      itemToAdd.quantity += 1;
-      itemToAdd.amount = Number((itemToAdd.price * itemToAdd.quantity));
-    }
-  }
-
-  getTotalQuantity(): number {
-    return this.cartList.reduce(
+  get totalQuantity(): number {
+    return this.cartProducts.reduce(
       (acc, item) => acc + item.quantity,
       0
     );
   }
 
-  getTotalSum(): number {
-    return this.cartList.reduce(
+  get totalSum(): number {
+    return this.cartProducts.reduce(
       (acc, item) => acc + item.amount,
       0
     );
   }
+
+  addItemToCartList(product: ProductModel): void {
+
+    //mutable approach
+    const itemToAdd = this.cartProducts.find(item => item.name === product.name);
+    if (!itemToAdd) {
+      this.cartProducts.push({ name: product.name, price: product.price, quantity: 1, amount: product.price })
+    } else {
+      itemToAdd.quantity += 1;
+      itemToAdd.amount = Number((itemToAdd.price * itemToAdd.quantity));
+    }
+
+    //unmutable approach - does not work
+    // let itemToAdd = this.cartProducts.find(item => item.name === product.name);
+    // if (!itemToAdd) {
+    //   itemToAdd = { name: product.name, price: product.price, quantity: 1, amount: product.price };  
+    //   this.cartProducts = [...this.cartProducts, itemToAdd];
+    // } else {
+    //   itemToAdd.quantity += 1;
+    //   itemToAdd.amount = Number((itemToAdd.price * itemToAdd.quantity));
+    //   this.cartProducts = [...this.cartProducts];
+    // }   
+    // console.log(this.cartProducts);    
+  }
+
+  getTotalQuantity(): number {
+    return this.cartProducts.reduce(
+      (acc, item) => acc + item.quantity,
+      0
+    );
+  }  
+
+  getTotalSum(): number {
+    return this.cartProducts.reduce(
+      (acc, item) => acc + item.amount,
+      0
+    );
+  }  
 
   increaseQuantity(cartItem: CartItemModel): void {
     cartItem.quantity++;
@@ -51,6 +79,9 @@ export class CartService {
     cartItem.amount -= cartItem.price;
   }
   deleteItem(cartItem: CartItemModel): void {
-    this.cartList.splice(this.cartList.indexOf(cartItem), 1);
+    this.cartProducts.splice(this.cartProducts.indexOf(cartItem), 1);
+  }
+  public isEmptyCart(): boolean {
+    return this.cartProducts.length === 0;
   }
 }

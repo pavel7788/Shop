@@ -39,11 +39,19 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   getTotalQuantity(): number {
-    return this.cartService.getTotalQuantity();
+    //vie method
+    //return this.cartService.getTotalQuantity();
+
+    //via getter
+    return this.cartService.totalQuantity;
   }
 
   getTotalSum(): number {
-    return this.cartService.getTotalSum();
+    //via method
+    //return this.cartService.getTotalSum();
+
+    //via getter
+    return this.cartService.totalSum;
   }
 
   onIncreaseQuantity(increaseProduct: CartItemModel): void {
