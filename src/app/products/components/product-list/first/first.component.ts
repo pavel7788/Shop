@@ -17,23 +17,23 @@ import { ConfigModel } from 'src/app/core/models/config.model';
 export class FirstComponent implements OnInit {
   product: ProductModel = new ProductModel('Korona', 'Chocolate extra dark', 53, Category.FOOD, false);
 
-  constructor(   
-    @Optional() @Inject(ConstantsServiceToken) private constants: Record<string, string>,   
+  constructor(
+    @Optional() @Inject(ConstantsServiceToken) private constants: Record<string, string>,
     @Optional() private gs: GeneratorService,
     @Optional() @Inject(localStorageToken) private localStorage: any,
     @Optional() @Inject(generatedString) private stringGenerator: string,
     @Optional() private cs: ConfigOptionsService,
  ) {
  }
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.cs.setConfig({id:1, login:'pavel'});
     console.log(this.cs.getConfig());
 
-    console.log(this.constants);  
+    console.log(this.constants);
     console.log(this.gs.generate(20));
 
     this.Counter();
-        
+
     // smth is wrong here
     console.log(this.localStorage);
     console.log(this.stringGenerator);
@@ -43,6 +43,7 @@ export class FirstComponent implements OnInit {
     console.log(`Sorry, this item is out of the stock!!!`);
   }
 
+  // почему вдруг метод с большой буквы?
   Counter(): void {
     while (this.gs.getNewID()<10)
       setTimeout(() => console.log(this.gs.getNewID()), 1000);
