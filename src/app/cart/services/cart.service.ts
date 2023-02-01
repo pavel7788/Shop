@@ -10,7 +10,7 @@ export class CartService {
 
   constructor() { }
 
-  public getCartItems(): CartItemModel[] {
+  getCartItems(): CartItemModel[] {
     return this.cartProducts;
   }
 
@@ -42,14 +42,14 @@ export class CartService {
     //unmutable approach - does not work
     // let itemToAdd = this.cartProducts.find(item => item.name === product.name);
     // if (!itemToAdd) {
-    //   itemToAdd = { name: product.name, price: product.price, quantity: 1, amount: product.price };  
+    //   itemToAdd = { name: product.name, price: product.price, quantity: 1, amount: product.price };
     //   this.cartProducts = [...this.cartProducts, itemToAdd];
     // } else {
     //   itemToAdd.quantity += 1;
     //   itemToAdd.amount = Number((itemToAdd.price * itemToAdd.quantity));
     //   this.cartProducts = [...this.cartProducts];
-    // }   
-    // console.log(this.cartProducts);    
+    // }
+    // console.log(this.cartProducts);
   }
 
   getTotalQuantity(): number {
@@ -57,14 +57,14 @@ export class CartService {
       (acc, item) => acc + item.quantity,
       0
     );
-  }  
+  }
 
   getTotalSum(): number {
     return this.cartProducts.reduce(
       (acc, item) => acc + item.amount,
       0
     );
-  }  
+  }
 
   increaseQuantity(cartItem: CartItemModel): void {
     cartItem.quantity++;
@@ -81,7 +81,7 @@ export class CartService {
   deleteItem(cartItem: CartItemModel): void {
     this.cartProducts.splice(this.cartProducts.indexOf(cartItem), 1);
   }
-  public isEmptyCart(): boolean {
+  isEmptyCart(): boolean {
     return this.cartProducts.length === 0;
   }
 }

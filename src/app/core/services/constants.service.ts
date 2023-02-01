@@ -1,5 +1,6 @@
 import { InjectionToken } from '@angular/core';
 
+// переменные именуем с нижнего регистра
 export const ConstantsServiceToken = new InjectionToken<string>('ConstantsService');
 export const ConstantsServiceValue: Record<string, string> = {
     App: "Shop",

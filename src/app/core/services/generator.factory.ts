@@ -1,6 +1,8 @@
 import { InjectionToken } from "@angular/core";
 import { GeneratorService } from "./generator.service";
 
+// Тут должно быть наоборот
+// Функция принимает параметр n, а внутреняя функция принимает зависимость - сервис.
 export const GeneratorFactory = (genService: GeneratorService) => (n: number): string => {
     return genService.generate(n);
 };
