@@ -53,3 +53,13 @@
 ### Refactored
 
 - CartService and CartComponent using getters for total values
+
+## [1.0.4] - 2021-02-01
+
+### Refactored
+
+- cartPushService updated by using tuple
+- Added currency built-in pipe in CartComponent, ProductComponent.
+- Added uppercase build-in pipe in CartComponent
+- products.json replaced by products.ts
+- Added getProducts realisation using promise approach and using async pipe in product list template

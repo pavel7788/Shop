@@ -1,9 +1,9 @@
 <table class='table table-success cart-list-table'>
     <tbody>
         <tr>
-            <td>{{item.name}}</td>
+            <td>{{item.name | uppercase}}</td>
             <td>{{item.quantity}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.amount | currency:'UAH'}}</td>
             <td>
                 <button class="btn btn-secondary cart-button" (click)="onIncreaseQuantity()">+</button>
                 <button class="btn btn-secondary cart-button" (click)="onDecreaseQuantity()">-</button>

@@ -10,7 +10,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartListComponent implements OnInit, OnDestroy {
 
-  cartItems: CartItemModel[] = [];
+  cartItems!: CartItemModel[];
 
   //for push
   private sub!: Subscription;
@@ -22,14 +22,13 @@ export class CartListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
 
-    this.sub = this.cartPushService.channelQuantity$.subscribe(
-      data => this.totalQuantity = data
+    this.sub = this.cartPushService.channelQuantityAndSum$.subscribe(
+      data => {
+        this.totalQuantity = data[0]; 
+        this.totalSum=data[1]
+      }
     );
 
-    // как это? вы же выше сохранили уже в это поле данные, а тут перезатерли
-    this.sub = this.cartPushService.channelSum$.subscribe(
-      data => this.totalSum = data
-    );
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
@@ -40,7 +39,7 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
 
   getTotalQuantity(): number {
-    //vie method
+    //via method
     //return this.cartService.getTotalQuantity();
 
     //via getter

@@ -15,7 +15,7 @@ export class ProductListComponent implements OnInit {
   @Output()
   addProduct: EventEmitter<ProductModel> = new EventEmitter();
 
-  products: ProductModel[] = [];
+  products!: Promise<ProductModel[]>
 
   //for push
   private sub!: Subscription;
