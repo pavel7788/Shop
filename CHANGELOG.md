@@ -63,3 +63,9 @@
 - Added uppercase build-in pipe in CartComponent
 - products.json replaced by products.ts
 - Added getProducts realisation using promise approach and using async pipe in product list template
+
+## [1.0.5] - 2021-02-02
+
+### Added
+
+- OrderByPipe

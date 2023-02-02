@@ -1,8 +1,8 @@
-import { DrawborderDirective } from './drawborder.directive';
+import { DrawBorderDirective } from './drawBorder.directive';
 
-describe('DrawborderDirective', () => {
+describe('DrawBorderDirective', () => {
   it('should create an instance', () => {
-    const directive = new DrawborderDirective();
+    const directive = new DrawBorderDirective();
     expect(directive).toBeTruthy();
   });
 });

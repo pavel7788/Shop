@@ -1,30 +1,51 @@
-<h3 class="product-list-title">Cart List</h3>
-<div>
+<h3 class="product-list-title"> Cart List </h3>  
+<div>   
     <div *ngIf="cartItems.length > 0; else emptyCart">
+        <h6 class="order-by-title"> SORT BY: 
+            <select #sorter class="order-by-select" (change)="onSortOptionsChange()">         
+              <option value="quantity">quantity</option>
+              <option value="price">price</option>
+              <option value="amount">amount</option>
+              <option value="name">name</option>
+            </select>
+            &nbsp;
+            ASCENDING: 
+            <input
+              type="checkbox"
+              #isAscending
+              (change)="onSortOptionsChange()"   
+            />
+        </h6>      
         <table class='table table-success cart-list-table'>
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Price</th>
                     <th>Quantity</th>
                     <th>Amount, HRN</th>
                     <th>Action</th>
                 </tr>
             </thead>
         </table>
-        <app-cart-item *ngFor="let cartItem of cartItems; trackBy: trackByItems" [item]="cartItem"
+        <app-cart-item 
+            *ngFor="let cartItem of cartItems | orderBy: sorter.value: isAscending.checked; trackBy: trackByItems" 
+            [item]="cartItem"
             (increaseQuantity)="onIncreaseQuantity($event)" (decreaseQuantity)="onDecreaseQuantity($event)"
             (deleteItem)="onDeleteItem($event)">
         </app-cart-item>
         <table class='table table-success cart-list-table'>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <th>Total</th>
+                    <th></th>
                     <th>{{getTotalQuantity()}}</th>
                     <th>{{getTotalSum()}}</th>
                     <th></th>
-                </tr>
+                </tr> -->
+                <!-- Using push strategy -->
                 <tr>
-                    <th>Total with push</th>
+                    <th>Total</th>
+                    <th></th>
                     <th>{{totalQuantity}}</th>
                     <th>{{totalSum}}</th>
                     <th></th>
@@ -33,6 +54,11 @@
         </table>
     </div>
     <ng-template #emptyCart>
+        <p>
+            <img class="empty-cart-image" src="../../../assets/EmptyCart.png" alt="">
+        </p>
+    </ng-template>
+    <ng-template #singleElementCart>
         <p>
             <img class="empty-cart-image" src="../../../assets/EmptyCart.png" alt="">
         </p>

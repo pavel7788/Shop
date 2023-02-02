@@ -1,13 +1,20 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import CartItemModel from '../../models/cart.model';
 import { CartPushService } from '../../services/cart-push.service';
 import { CartService } from '../../services/cart.service';
+
+interface SortOptions {
+  key: "name" | "price" | "quantity" | "amount" ;
+  isAsc: boolean;
+}
+
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
-  styleUrls: ['./cart-list.component.css']
+  styleUrls: ['./cart-list.component.css'], 
 })
+
 export class CartListComponent implements OnInit, OnDestroy {
 
   cartItems!: CartItemModel[];
@@ -17,7 +24,10 @@ export class CartListComponent implements OnInit, OnDestroy {
   totalQuantity!: number
   totalSum!: number
 
-  constructor(private cartService: CartService, private cartPushService: CartPushService) { }
+  constructor  (
+    private cartService: CartService, 
+    private cartPushService: CartPushService,
+    private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
@@ -32,6 +42,10 @@ export class CartListComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  onSortOptionsChange(): void {
+    this.cdr.markForCheck();
   }
 
   trackByItems(_index: number, item: CartItemModel): string {

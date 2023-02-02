@@ -21,6 +21,7 @@ export class ConfigOptionsService {
     return this._config;
   }
 
+  // setConfigProperty(key: keyof ..., value: any): void // my bad variant
   setConfigProperty<TKey extends keyof ConfigModel>(key: TKey, value: ConfigModel[TKey]): void {
     // ...
   }

@@ -1,21 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighlightDirective } from './directives/highlight.directive';
-import { DrawborderDirective } from './directives/drawborder.directive';
+import { DrawBorderDirective } from './directives/drawborder.directive';
+import { OrderByPipe } from './pipe/order-by.pipe';
 
 
 
 @NgModule({
   declarations: [
     HighlightDirective,
-    DrawborderDirective
+    DrawBorderDirective,
+    OrderByPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
     HighlightDirective,
-    DrawborderDirective
+    DrawBorderDirective,
+    OrderByPipe,
+    CommonModule
   ]
 })
 export class SharedModule { }

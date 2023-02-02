@@ -1,9 +1,9 @@
 import { Directive, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appDrawborder]'
+  selector: '[appDrawBorder]'
 })
-export class DrawborderDirective {
+export class DrawBorderDirective {
 
   @HostBinding('style.border') border!: string;
 
