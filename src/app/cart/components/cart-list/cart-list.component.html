@@ -1,6 +1,7 @@
 <h3 class="product-list-title"> Cart List </h3>  
 <div>   
-    <div *ngIf="cartItems.length > 0; else emptyCart">
+    <!-- <div *ngIf="(); else emptyCart"> -->
+    <div *ngIf="isNotEmptyCart$ | async; else emptyCart">
         <h6 class="order-by-title"> SORT BY: 
             <select #sorter class="order-by-select" (change)="onSortOptionsChange()">         
               <option value="quantity">quantity</option>
@@ -26,39 +27,34 @@
                     <th>Action</th>
                 </tr>
             </thead>
-        </table>
-        <app-cart-item 
+        </table>       
+        <!-- <app-cart-item
             *ngFor="let cartItem of cartItems | orderBy: sorter.value: isAscending.checked; trackBy: trackByItems" 
             [item]="cartItem"
             (increaseQuantity)="onIncreaseQuantity($event)" (decreaseQuantity)="onDecreaseQuantity($event)"
             (deleteItem)="onDeleteItem($event)">
-        </app-cart-item>
+        </app-cart-item>  -->
+        <app-cart-item
+            *ngFor="let cartItem of cartItems$ | async | orderBy: sorter.value: isAscending.checked; trackBy: trackByItems" 
+            [item]="cartItem"
+            (increaseQuantity)="onIncreaseQuantity($event)" (decreaseQuantity)="onDecreaseQuantity($event)"
+            (deleteItem)="onDeleteItem($event)">
+        </app-cart-item> 
         <table class='table table-success cart-list-table'>
             <tbody>
-                <!-- <tr>
-                    <th>Total</th>
-                    <th></th>
-                    <th>{{getTotalQuantity()}}</th>
-                    <th>{{getTotalSum()}}</th>
-                    <th></th>
-                </tr> -->
-                <!-- Using push strategy -->
                 <tr>
                     <th>Total</th>
                     <th></th>
-                    <th>{{totalQuantity}}</th>
-                    <th>{{totalSum}}</th>
+                    <th>{{totalQuantity$ | async}}</th>
+                    <!-- <th>{{getTotalQuantity()}}</th> -->
+                    <th>{{totalSum$ | async}}</th>
+                    <!-- <th>{{getTotalSum()}}</th> -->
                     <th></th>
-                </tr>
+                </tr>              
             </tbody>
         </table>
     </div>
     <ng-template #emptyCart>
-        <p>
-            <img class="empty-cart-image" src="../../../assets/EmptyCart.png" alt="">
-        </p>
-    </ng-template>
-    <ng-template #singleElementCart>
         <p>
             <img class="empty-cart-image" src="../../../assets/EmptyCart.png" alt="">
         </p>

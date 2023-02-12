@@ -2,6 +2,7 @@ import { Category } from "./category.model";
 
 export default class ProductModel {
   constructor(
+    public id: number,
     public name: string,
     public description: string | null,
     public price: number,

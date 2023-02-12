@@ -15,7 +15,7 @@ import { ConfigModel } from 'src/app/core/models/config.model';
   providers: [constantsProvider, localStorageProvider, generatedStringProvider],
 })
 export class FirstComponent implements OnInit {
-  product: ProductModel = new ProductModel('Korona', 'Chocolate extra dark', 53, Category.FOOD, false);
+  product: ProductModel = new ProductModel(0, 'Korona', 'Chocolate extra dark', 53, Category.FOOD, false);
 
   constructor(
     @Optional() @Inject(constantsServiceToken) private constants: Record<string, string>,

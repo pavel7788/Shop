@@ -2,6 +2,10 @@
 
 <div class="d-flex justify-content-center flex-wrap">
   <app-first class="p-2"></app-first>
-  <app-product class="p-2" *ngFor="let item of products | async" [product]="item" (addProduct)="onAddToCart($event)">
-  </app-product>
+  <!-- promise -->  
+  <app-product class="p-2" *ngFor="let item of products | async" [product]="item" (addProduct)="onAddToCart($event)"> </app-product>
+  <!-- BehaviorSubject  -->
+  <app-product class="p-2" *ngFor="let item of products_bs$ | async" [product]="item" (addProduct)="onAddToCart($event)"></app-product>
+  <!--Observable-->
+  <app-product class="p-2" *ngFor="let item of products$ | async" [product]="item" (addProduct)="onAddToCart($event)"></app-product>  
 </div>

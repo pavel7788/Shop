@@ -33,7 +33,7 @@
 
 ### Added
 
-- CartPushService
+- CartObsevableService
 - Shared Module
 - Directives Highlight, Drawborder in SharedModule
 
@@ -58,14 +58,31 @@
 
 ### Refactored
 
-- cartPushService updated by using tuple
-- Added currency built-in pipe in CartComponent, ProductComponent.
-- Added uppercase build-in pipe in CartComponent
+- CartObservabelService updated by using tuple
 - products.json replaced by products.ts
-- Added getProducts realisation using promise approach and using async pipe in product list template
+
+### Added
+
+- currency built-in pipe in CartComponent, ProductComponent.
+- uppercase build-in pipe in CartComponent
+- getProducts realisation using promise approach and using async pipe in product list template
 
 ## [1.0.5] - 2021-02-02
 
 ### Added
 
 - OrderByPipe
+
+## [1.0.6] - 2021-02-12
+
+### Added
+
+- getProducts realisation using observable approach and using async pipe in product list template
+
+### Refactored
+
+- products.ts replaced by products.json
+- added id to ProductModel and CartItemModel
+- CartService renamed to CartArrayService
+- CartPushService renamde to CartObservableService
+- Updated CartObservableService

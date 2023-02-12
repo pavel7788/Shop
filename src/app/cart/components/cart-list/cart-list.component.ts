@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
-import CartItemModel from '../../models/cart.model';
-import { CartPushService } from '../../services/cart-push.service';
-import { CartService } from '../../services/cart.service';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Observable} from 'rxjs';
+import CartItemModel from '../../models/cart-item.model';
+import { CartObservableService } from '../../services/cart-observable.service';
+import { CartArrayService } from '../../services/cart-array.service';
+import ProductModel from 'src/app/products/models/product.model';
 
 interface SortOptions {
   key: "name" | "price" | "quantity" | "amount" ;
@@ -15,76 +16,79 @@ interface SortOptions {
   styleUrls: ['./cart-list.component.css'], 
 })
 
-export class CartListComponent implements OnInit, OnDestroy {
+export class CartListComponent implements OnInit {
 
   cartItems!: CartItemModel[];
 
-  //for push
-  private sub!: Subscription;
-  totalQuantity!: number
-  totalSum!: number
+  cartItems$!: Observable<CartItemModel[]>;
+  isNotEmptyCart$!: Observable<boolean>
+  totalQuantity$!: Observable<Number>
+  totalSum$!: Observable<Number>
+
+  itemToAdd$!: Observable<CartItemModel>
 
   constructor  (
-    private cartService: CartService, 
-    private cartPushService: CartPushService,
+    private cartService: CartArrayService, 
+    private cartObservableService: CartObservableService,
     private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    this.cartItems = this.cartService.getCartItems();
-
-    this.sub = this.cartPushService.channelQuantityAndSum$.subscribe(
-      data => {
-        this.totalQuantity = data[0]; 
-        this.totalSum=data[1]
-      }
-    );
-
+    //this.cartItems = this.cartService.getCartItems() 
+    this.cartItems$ = this.cartObservableService.getCartItems()  
+    this.isNotEmptyCart$ = this.isNotEmptyCart()   
+    this.totalQuantity$ = this.getTotalQuantity()
+    this.totalSum$ = this.getTotalSum()
   }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+
+  //isNotEmptyCart(): boolean {
+  isNotEmptyCart(): Observable<boolean> {
+    //return this.cartService.isNotEmptyCart()
+    return this.cartObservableService.isNotEmptyCart()
   }
 
   onSortOptionsChange(): void {
     this.cdr.markForCheck();
   }
 
-  trackByItems(_index: number, item: CartItemModel): string {
-    return item.name;
+  trackByItems(_index: number, item: CartItemModel): number {
+    return item.id;
   }
 
-  getTotalQuantity(): number {
+  //getTotalQuantity(): number {
+  getTotalQuantity(): Observable<number> {
     //via method
     //return this.cartService.getTotalQuantity();
+    //return this.cartObservableService.getTotalQuantity();
 
     //via getter
-    return this.cartService.totalQuantity;
+    //return this.cartService.totalQuantity;
+    return this.cartObservableService.getTotalQuantity()
   }
 
-  getTotalSum(): number {
+  //getTotalSum(): number {
+  getTotalSum(): Observable<number> {
     //via method
     //return this.cartService.getTotalSum();
+    //return this.cartObservableService.getTotalSum();
 
     //via getter
-    return this.cartService.totalSum;
+    //return this.cartService.totalSum;
+    return this.cartObservableService.getTotalSum();
   }
 
   onIncreaseQuantity(increaseProduct: CartItemModel): void {
-    this.cartService.increaseQuantity(increaseProduct);
-
-    this.cartPushService.publishData(this.getTotalQuantity(), this.getTotalSum());
+    //this.cartService.increaseQuantity(increaseProduct);
+    this.cartItems$ = this.cartObservableService.increaseQuantity(increaseProduct)
   }
 
   onDecreaseQuantity(decreaseProduct: CartItemModel): void {
-    this.cartService.decreaseQuantity(decreaseProduct);
-
-    this.cartPushService.publishData(this.getTotalQuantity(), this.getTotalSum());
+    //this.cartService.decreaseQuantity(decreaseProduct);
+    this.cartItems$ = this.cartObservableService.decreaseQuantity(decreaseProduct)
   }
 
   onDeleteItem(deleteProduct: CartItemModel): void {
-    this.cartService.deleteItem(deleteProduct);
-
-    this.cartPushService.publishData(this.getTotalQuantity(), this.getTotalSum());
+    //this.cartService.deleteItem(deleteProduct);    
+    this.cartItems$ = this.cartObservableService.deleteItem(deleteProduct);
   }
-
 
 }

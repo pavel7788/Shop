@@ -1,9 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductsService } from "../../services/products.service";
-import { CartService } from 'src/app/cart/services/cart.service';
+import { ProductsPromiseService } from "../../services/products-promise.service";
+import { CartArrayService } from 'src/app/cart/services/cart-array.service';
 import ProductModel from '../../models/product.model';
-import { Subscription } from 'rxjs';
-import { CartPushService } from 'src/app/cart/services/cart-push.service';
+import { Subscription, BehaviorSubject, Observable } from 'rxjs';
+import { CartObservableService } from 'src/app/cart/services/cart-observable.service';
+import { CartItemComponent } from 'src/app/cart/components/cart-list/cart-item/cart-item.component';
+import { CartListComponent } from 'src/app/cart/components/cart-list/cart-list.component';
+
 
 @Component({
   selector: 'app-product-list',
@@ -16,20 +20,25 @@ export class ProductListComponent implements OnInit {
   addProduct: EventEmitter<ProductModel> = new EventEmitter();
 
   products!: Promise<ProductModel[]>
+  products_bs$!: BehaviorSubject<ProductModel[]>
+  products$!: Observable<ProductModel[]>
 
-  //for push
-  private sub!: Subscription;
-  totalQuantity!: number
-  totalSum!: number
-
-  constructor(private productsService: ProductsService, private cartService: CartService, private cartPushService: CartPushService) { }
+  constructor(
+    private productsService: ProductsService, 
+    private productsPromiseService: ProductsPromiseService, 
+    private cartService: CartArrayService, 
+    private cartObservableService: CartObservableService
+  ) { }
 
   ngOnInit(): void {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsPromiseService.getProducts()
+    //this.products = this.productsService.getProducts()
+    //this.products_bs$ = this.productsService.getProducts()
+    //this.products$ = this.productsService.getProducts()
+    console.log(CartListComponent.prototype.cartItems$)
   }
   onAddToCart(product: ProductModel): void {
-    this.cartService.addItemToCartList(product);
-
-    this.cartPushService.publishData(this.cartService.getTotalQuantity(), this.cartService.getTotalSum());
+    //this.cartService.addItemToCartList(product)
+    CartListComponent.prototype.cartItems$=this.cartObservableService.addItemToCartList(product)
   }
 }
